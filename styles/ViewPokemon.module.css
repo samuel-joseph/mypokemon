@@ -1,0 +1,62 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+.animation {
+  width: 5vw;
+}
+
+.buttonSave:hover {
+  background-color: rgb(200, 0, 0);
+}
+
+.buttonSave {
+  width: 100%;
+  padding: 2vh 0;
+  background-color: red;
+  font-weight: bold;
+  color: white;
+}
+
+.buttonSave:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(2px);
+}
+
+.row {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  width: 80%;
+  height: 60%;
+  border-radius: 30px;
+  color: black;
+  overflow-y: scroll;
+  position: static;
+}
+
+.rowEach {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.rowEach2 {
+  padding-top: 1%;
+  display: flex;
+  background-color: white;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  border-style: double;
+}

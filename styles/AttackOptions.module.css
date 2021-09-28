@@ -1,0 +1,16 @@
+.innerAttack {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  padding-top: 1vh;
+}
+
+.text {
+  width: 100%;
+  height: 100%;
+}
+
+.circleButton {
+  width: 80vw;
+  border-radius: 20px;
+}

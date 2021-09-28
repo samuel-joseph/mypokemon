@@ -1,0 +1,155 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: black;
+  width: 80%;
+  height: 50vh;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-size: small;
+}
+
+.ball {
+  width: 100%;
+}
+
+.base {
+  width: 75w;
+}
+
+.smallCircle {
+  display: flex;
+  position: absolute;
+  border-style: dotted;
+  border-color: rgb(8, 248, 116);
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 8vw;
+  height: 15vh;
+}
+
+.bigCircle {
+  display: flex;
+  position: absolute;
+  border-style: dotted;
+  border-color: rgb(8, 248, 116);
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 22.5vw;
+  height: 35vh;
+}
+
+.circle1 {
+  display: flex;
+  border-style: solid;
+  border-color: rgba(22, 72, 236, 0.534);
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 35vw;
+  height: 55vh;
+  animation-name: shrinking;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+}
+
+.test {
+  position: absolute;
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bolder;
+  font-size: xx-large;
+  /* width: 10vw;
+  opacity: 0.2; */
+}
+
+.pokemon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  /* position: absolute; */
+}
+
+.text {
+  font-size: 12pt;
+  width: 30vw;
+}
+
+.npc {
+  display: flex;
+  padding-left: 35%;
+  padding-top: 5%;
+}
+
+@keyframes shrinking {
+  0% {
+    width: 35vw;
+    height: 55vh;
+  }
+  50% {
+    width: 1vw;
+    height: 2vh;
+  }
+  100% {
+    width: 35vw;
+    height: 55vh;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.image {
+  position: absolute;
+  /* padding: 0 2vw; */
+  width: 10vw;
+}
+@media (max-width: 600px) {
+  .test {
+    width: 25vw;
+  }
+  @keyframes shrinking {
+    0% {
+      width: 100vw;
+      height: 42vh;
+    }
+    50% {
+      width: 20vw;
+      height: 10vh;
+    }
+    100% {
+      width: 100vw;
+      height: 42vh;
+    }
+  }
+  .image {
+    width: 40vw;
+  }
+
+  .bigCircle {
+    width: 50vw;
+    height: 22vh;
+  }
+
+  .smallCircle {
+    width: 25vw;
+    height: 12vh;
+  }
+
+  .circle1 {
+    width: 100vw;
+    height: 42vh;
+  }
+}

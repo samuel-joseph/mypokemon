@@ -1,0 +1,369 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+/* .optionBackground {
+  height: 100%;
+  width: 100%;
+} */
+
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: black;
+  width: 80%;
+  height: 50vh;
+  margin-top: 5vh;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.rowOption {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  color: black;
+  width: 80%;
+  height: 50vh;
+}
+
+.wildAppear {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+.npcConst {
+  display: flex;
+  padding-left: 25%;
+  padding-top: 5%;
+}
+
+.toBattle {
+  margin-top: 5vh;
+  padding: 2vh 0;
+  background-color: red;
+  color: white;
+  font-weight: bolder;
+  width: 10vw;
+  border-radius: 20px;
+  /* position: absolute; */
+}
+
+.unnecessary {
+  text-align: center;
+  width: 75vw;
+}
+
+.optionPokemon {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: justify;
+  width: 100vw;
+}
+
+.optionHolder {
+  /* margin: 0 2vw; */
+  /* height: 20vh; */
+  background-color: black;
+}
+
+.optionButton {
+  background-color: black;
+  color: white;
+  border-style: none;
+}
+
+.npc {
+  display: flex;
+  padding-left: 35%;
+  padding-top: 5%;
+  animation-name: npcmove;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+}
+
+.npcAttack {
+  position: fixed;
+  animation-name: npcanimate;
+  opacity: 0;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+}
+
+.userAttack {
+  animation-name: usermove;
+  animation-iteration-count: initial;
+  animation-duration: 1s;
+}
+
+.containerUser {
+  display: flex;
+  background-color: brown;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 50vw;
+}
+
+.npcHp {
+  padding-top: 10vh;
+}
+
+.userAttackAnimation {
+  position: fixed;
+  animation-name: npcanimate;
+  opacity: 0;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+  /* width: 30vw; */
+  height: 30vh;
+}
+
+.npcAttackContainer {
+  padding-bottom: 10vh;
+  height: 30vh;
+  background-color: red;
+}
+
+.userMainContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.userContainer {
+  width: 100%;
+  padding-left: 5vw;
+}
+
+.option {
+  height: 30vh;
+}
+
+.imageUser {
+  /* position: absolute; */
+  width: 10vw;
+}
+
+.userFainted {
+  opacity: 0;
+  width: 10vw;
+  animation-name: fainting;
+  animation-iteration-count: initial;
+  animation-duration: 3s;
+}
+
+.npcFainted {
+  opacity: 0;
+  width: 10vw;
+  animation-name: fainting;
+  animation-iteration-count: initial;
+  animation-duration: 3s;
+}
+
+.image {
+  width: 10vw;
+}
+
+.pokeball {
+  width: 100vw;
+}
+
+.circleButton[disabled="disabled"],
+.circleButton:disabled {
+  background-color: red;
+}
+
+.circleButton {
+  width: 3vw;
+  height: 5vh;
+  background-color: yellowgreen;
+  border-radius: 100%;
+  display: inline-block;
+}
+
+.attackDetails {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  width: 60%;
+}
+
+.rowEach {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2% 2%;
+  margin: 0.5% 2%;
+  background-color: red;
+  border-radius: 20px;
+}
+
+.rowEach2 {
+  padding-top: 1%;
+  display: flex;
+  background-color: white;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  border-style: double;
+}
+
+@keyframes npcanimate {
+  00% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  35% {
+    opacity: 0;
+  }
+}
+
+@keyframes fainting {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes npcmove {
+  75% {
+    padding-left: 35%;
+  }
+  90% {
+    padding-left: 25%;
+  }
+  100% {
+    padding-left: 35%;
+  }
+}
+
+@keyframes usermove {
+  50% {
+    padding-left: 15%;
+  }
+  100% {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .toBattle {
+    width: 25vw;
+  }
+
+  .row {
+    width: 100%;
+  }
+  .imageUser {
+    width: 40vw;
+    /* position: absolute; */
+  }
+
+  .userFainted {
+    opacity: 0;
+    width: 40vw;
+    animation-name: fainting;
+    animation-iteration-count: initial;
+    animation-duration: 3s;
+    /* position: absolute; */
+  }
+
+  .npcFainted {
+    opacity: 0;
+    width: 25vw;
+    animation-name: fainting;
+    animation-iteration-count: initial;
+    animation-duration: 3s;
+    /* position: absolute; */
+  }
+  .user {
+    width: 80vw;
+  }
+  .image {
+    width: 25vw;
+  }
+
+  .npcAttackContainer {
+    background-color: red;
+    /* padding-right: 10vw; */
+    /* padding-bottom: 20%; */
+    /* width: 100%; */
+    /* height: 50vh; */
+  }
+  .npcAttack {
+    position: absolute;
+    width: 50%;
+    /* height: 80vh; */
+    /* padding-bottom: 70vh; */
+    /* padding-right: 55vw; */
+  }
+  .userMainContainer {
+    /* background-color: black; */
+  }
+
+  .userAttackContainer {
+    width: 60vw;
+    padding-bottom: 10vh;
+  }
+
+  .userAttackAnimation {
+    width: 70%;
+  }
+
+  .rowEach {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+    padding: 2% 2%;
+    margin: 2% 2%;
+    background-color: red;
+    border-radius: 200px;
+  }
+}

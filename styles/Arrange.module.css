@@ -1,0 +1,34 @@
+.main {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.row {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  padding: 5vh 2vw;
+  /* background-color: white; */
+  border: solid white;
+}
+
+.image {
+  width: 25vw;
+  border: solid white;
+}
+
+.button {
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  margin-top: 10vh;
+  /* background-color: red; */
+  flex-direction: row;
+  width: fit-content;
+}

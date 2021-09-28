@@ -1,0 +1,20 @@
+.progressbar {
+  position: relative;
+  height: 20px;
+  width: 30vw;
+  border-radius: 50px;
+  border: 1px solid#333;
+}
+
+.filler {
+  background-color: #1da598;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.1 ease-in;
+}
+
+@media (max-width: 600px) {
+  .progressbar {
+    width: 45vw;
+  }
+}
