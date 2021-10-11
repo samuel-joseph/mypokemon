@@ -11,6 +11,8 @@ export default function StoryMode() {
     inventory: null,
     userPokemons: [],
     battle: false,
+    userMove: null,
+    npcMove: null,
   });
   useEffect(() => {
     const leaders = JSON.parse(sessionStorage.getItem("leaders"));
@@ -68,17 +70,22 @@ export default function StoryMode() {
     setData((prevState) => ({ ...prevState, battle: true }));
 
   const attackMove = (props) => {
-    console.log(props);
+    let userMove = props;
+    setData((prevState) => ({ ...prevState, userMove }));
+    setTimeout(function () {
+      setData((prevState) => ({ ...prevState, userMove: null }));
+    }, 2000);
   };
 
   const switchPokemon = (props) => {
-    console.log(props);
     let userPokemons = data["userPokemons"];
     let index = userPokemons.findIndex(
       (i) =>
         i.name === props.name && i.currentExperience === props.currentExperience
     );
-    
+    userPokemons.splice(index, 1);
+    userPokemons.unshift(props);
+    setData((prevState) => ({ ...prevState, userPokemons }));
   };
 
   return (
@@ -115,9 +122,11 @@ export default function StoryMode() {
                   100
                 }
               />
+              {data["userMove"] && <img src={data["userMove"].animation} />}
               <img src={data["leader"].pokemon[0].frontImage} />
             </div>
             <div>
+              {data["npcMove"] && <img src={data["npcMove"].animation} />}
               <img src={data["userPokemons"][0].frontImage} />
               <ProgressBar
                 percentage={
