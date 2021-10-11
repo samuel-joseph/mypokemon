@@ -6,48 +6,72 @@
   background-color: black;
   color: white;
   font-weight: bold;
+  padding-top: 10vh;
 }
 
-.battleContainer {
-  /* background-color: red; */
-}
-
-.row {
+.pokemonChosen {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  background-color: gray;
-  width: 80%;
-  height: 50vh;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.rowOption {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  width: 80vw;
-  height: 30vh;
-}
-
-.rowEach {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  padding: 2% 2%;
-  margin: 2% 2%;
+  flex-direction: row;
+  padding: 1vh 1vw;
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 20px;
+  margin-bottom: 2vh;
+}
+
+.inventory {
+  display: grid;
+  grid-template-columns: 10vw 10vw 10vw 10vw;
+}
+
+.leaderContainer {
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+  align-items: center;
+}
+
+.leaderImageContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.leaderPokemonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionPokemon {
+  background: none;
+  border: none;
+}
+
+.green {
+  padding: 2vh 8vw;
+  font-weight: bold;
+  font-size: large;
+  border-radius: 20px;
+  background-color: rgb(138, 247, 29);
+}
+
+.red {
+  padding: 2vh 8vw;
+  color: white;
+  background-color: black;
+  border-color: black;
+}
+
+.leaderImage {
+  width: 10vw;
 }
 
 @media (max-width: 600px) {
-  .rowOption {
-    width: 80vw;
+  .leaderImage {
+    width: 40vw;
+  }
+  .inventory {
+    grid-template-columns: 20vw 20vw 20vw 20vw;
+  }
+  .green {
+    padding: 2vh 25vw;
   }
 }

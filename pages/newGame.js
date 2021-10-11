@@ -10,6 +10,7 @@ export default function NewGame() {
   const [trigger, setTrigger] = useState(false);
   const [message, setMessage] = useState("CHOOSE YOUR STARTER!");
   const [value, setValue] = useState("");
+  const [leaders, setLeaders] = useState(null);
 
   useEffect(() => {
     async function fetchAPI() {
@@ -18,6 +19,9 @@ export default function NewGame() {
       );
       response = await response.json();
       setStarter(response.starter);
+      console.log(response.starter);
+      console.log([...response.leaders]);
+      setLeaders([...response.leaders]);
     }
     fetchAPI();
   }, []);
@@ -34,8 +38,10 @@ export default function NewGame() {
     if (value !== "") {
       newPokemon["name"] = value;
     }
-
+    console.log(chosen);
+    console.log(newPokemon);
     sessionStorage["pokemon"] = JSON.stringify(newPokemon);
+    sessionStorage["leaders"] = JSON.stringify(leaders);
   };
 
   return (

@@ -9,6 +9,7 @@ export default function ViewPokemon() {
   const [arrange, setArrange] = useState(false);
 
   useEffect(() => {
+    // const leaders = JSON.parse(sessionStorage.getItem("leaders"));
     const data = JSON.parse(sessionStorage.getItem("pokemon") || "[]");
     console.log(data);
     if (Array.isArray(data)) {
