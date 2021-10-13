@@ -4,6 +4,8 @@ import Link from "next/link";
 export default function LeaderContainer(props) {
   return (
     <>
+      {props.message === "winningMessage" && <h1>You WIN!</h1>}
+      {props.message === "losingMessage" && <h1>You LOSE!</h1>}
       {props.leader && (
         <div className={styles.leaderContainer}>
           <h1>{props.leader.name}</h1>
