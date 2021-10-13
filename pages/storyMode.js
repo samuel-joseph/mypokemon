@@ -8,6 +8,7 @@ export default function StoryMode() {
   const [autoAttack, setAutoAttack] = useState(false);
   const [userDisable, setUserDisable] = useState(false);
   const [data, setData] = useState({
+    userPokemonsTemp: null,
     leader: null,
     pokemonOption: false,
     inventory: null,
@@ -31,6 +32,252 @@ export default function StoryMode() {
     }));
   }, []);
 
+  const typeAdvantage = (moveType, pokemonType) => {
+    switch (moveType) {
+      case "Dragon":
+        switch (pokemonType) {
+          case "Dragon":
+            return 2;
+          default:
+            return 1;
+        }
+      case "Ghost":
+        switch (pokemonType) {
+          case "Normal":
+            return 0;
+          case "Psychic":
+            return 0;
+          case "Ghost":
+            return 2;
+          default:
+            return 1;
+        }
+      case "Rock":
+        switch (pokemonType) {
+          case "Fire":
+            return 2;
+          case "Ice":
+            return 0.5;
+          case "Fighting":
+            return 0.5;
+          case "Flying":
+            return 2;
+          case "Ground":
+            return 0.5;
+          case "Ghost":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Bug":
+        switch (pokemonType) {
+          case "Fire":
+            return 0.5;
+          case "Grass":
+            return 2;
+          case "Fighting":
+            return 0.5;
+          case "Poison":
+            return 2;
+          case "Flying":
+            return 0.5;
+          case "Psychic":
+            return 2;
+          case "Ghost":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Psychic":
+        switch (pokemonType) {
+          case "Fighting":
+            return 2;
+          case "Poison":
+            return 2;
+          case "Psychic":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Flying":
+        switch (pokemonType) {
+          case "Electric":
+            return 0.5;
+          case "Grass":
+            return 2;
+          case "Fighting":
+            return 2;
+          case "Bug":
+            return 2;
+          case "Ghost":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Ground":
+        switch (pokemonType) {
+          case "Fire":
+            return 2;
+          case "Electric":
+            return 2;
+          case "Grass":
+            return 0.5;
+          case "Poison":
+            return 2;
+          case "Flying":
+            return 0;
+          case "Bug":
+            return 0.5;
+          case "Rock":
+            return 2;
+          default:
+            return 1;
+        }
+      case "Poison":
+        switch (pokemonType) {
+          case "Grass":
+            return 2;
+          case "Ice":
+            return 2;
+          case "Grass":
+            return 0.5;
+          case "Poison":
+            return 0.5;
+          case "Ground":
+            return 0.5;
+          case "Bug":
+            return 2;
+          case "Rock":
+            return 0.5;
+          case "Ghost":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Fighting":
+        switch (pokemonType) {
+          case "Normal":
+            return 2;
+          case "Ice":
+            return 2;
+          case "Grass":
+            return 0.5;
+          case "Poison":
+            return 0.5;
+          case "Psychic":
+            return 0.5;
+          case "Flying":
+            return 0.5;
+          case "Bug":
+            return 0.5;
+          case "Rock":
+            return 2;
+          case "Ghost":
+            return 0;
+          default:
+            return 1;
+        }
+      case "Ice":
+        switch (pokemonType) {
+          case "Water":
+            return 0.5;
+          case "Grass":
+            return 2;
+          case "Ice":
+            return 0.5;
+          case "Ground":
+            return 2;
+          case "Flying":
+            return 2;
+          case "Dragon":
+            return 2;
+          default:
+            return 1;
+        }
+      case "Grass":
+        switch (pokemonType) {
+          case "Fire":
+            return 0.5;
+          case "Water":
+            return 2;
+          case "Grass":
+            return 0.5;
+          case "Poison":
+            return 0.5;
+          case "Ground":
+            return 2;
+          case "Flying":
+            return 0.5;
+          case "Dragon":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Electric":
+        switch (pokemonType) {
+          case "Water":
+            return 2;
+          case "Electric":
+            return 0.5;
+          case "Grass":
+            return 0.5;
+          case "Ground":
+            return 0;
+          case "Flying":
+            return 2;
+          case "Dragon":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Water":
+        switch (pokemonType) {
+          case "Fire":
+            return 2;
+          case "Water":
+            return 0.5;
+          case "Grass":
+            return 0.5;
+          case "Ground":
+            return 2;
+          case "Rock":
+            return 2;
+          case "Dragon":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Fire":
+        switch (pokemonType) {
+          case "Fire":
+            return 0.5;
+          case "Water":
+            return 0.5;
+          case "Grass":
+            return 2;
+          case "Ice":
+            return 2;
+          case "Bug":
+            return 2;
+          case "Rock":
+            return 0.5;
+          case "Dragon":
+            return 0.5;
+          default:
+            return 1;
+        }
+      case "Normal":
+        switch (pokemonType) {
+          case "Rock":
+            return 0.5;
+          case "Ghost":
+            return 0;
+          default:
+            return 1;
+        }
+    }
+  };
+
   const pokemonChoose = () =>
     setData((prevState) => ({ ...prevState, pokemonOption: true }));
 
@@ -48,6 +295,7 @@ export default function StoryMode() {
     setData((prevState) => ({
       ...prevState,
       userPokemons,
+      userPokemonsTemp: userPokemons,
       inventory,
     }));
   };
@@ -78,7 +326,6 @@ export default function StoryMode() {
       const autoNpc = setInterval(function () {
         if (data["leader"].pokemon.length === 0) {
           clearInterval(autoNpc);
-          console.log("STOPPED");
         } else {
           let userPokemons = data["userPokemons"];
           let leader = data["leader"];
@@ -89,6 +336,8 @@ export default function StoryMode() {
               (move.level == "medium" && move.gauge == 100) ||
               move.level == "weak"
           );
+
+          npcMove = npcMove.pop();
 
           for (const move of moves) {
             if (move.level != "weak") {
@@ -104,8 +353,28 @@ export default function StoryMode() {
             }
           }
 
-          npcMove = npcMove.pop();
-          userPokemons[0].currentHealth -= npcMove.attack;
+          let typePokemon = leader.pokemon[0].type;
+          let typeMove = npcMove.type;
+          let typeBonus = 1;
+
+          if (typeMove === typePokemon) {
+            typeBonus = 1.2;
+          }
+
+          typeBonus *= leader.pokemon[0].level * 0.009;
+          let bonus = typeAdvantage(typeMove, leader.pokemon[0].type);
+
+          typeBonus += bonus;
+
+          console.log(npcMove.attack * typeBonus);
+
+          userPokemons[0].currentHealth =
+            userPokemons[0].currentHealth - npcMove.attack * typeBonus;
+
+          // console.log(npcMove.attack * typeBonus);
+
+          // userPokemons[0].currentHealth -= npcMove.attack;
+
           setData((prevState) => ({ ...prevState, npcMove }));
           if (userPokemons[0].currentHealth <= 0) {
             userPokemons.splice(0, 1);
@@ -129,9 +398,22 @@ export default function StoryMode() {
     npcAttackFunction();
 
     let userMove = props;
+    let userCurrent = data["userPokemons"][0];
     let currentNpc = data["leader"].pokemon[0];
     let leader = data["leader"].pokemon;
-    let userMoves = data["userPokemons"][0].moves;
+    let userMoves = userCurrent.moves;
+    let typeMove = userMove.type;
+    let typePokemon = userCurrent.type;
+    let typeBonus = 1;
+
+    if (typeMove === typePokemon) {
+      typeBonus = 1.2;
+    }
+
+    typeBonus *= userCurrent.level * 0.009;
+    let bonus = typeAdvantage(typeMove, currentNpc.type);
+
+    typeBonus += bonus;
 
     for (const move of userMoves) {
       if (move.name !== props.name) {
@@ -151,11 +433,15 @@ export default function StoryMode() {
       setData((prevState) => ({ ...prevState, userMove: null }));
     }, 2000);
 
-    currentNpc.currentHealth = currentNpc.currentHealth - userMove.attack;
+    console.log(userMove.attack * typeBonus);
+
+    currentNpc.currentHealth =
+      currentNpc.currentHealth - userMove.attack * typeBonus;
 
     if (currentNpc.currentHealth <= 0) {
       leader.splice(0, 1);
     }
+
     setUserDisable(true);
     setTimeout(function () {
       setUserDisable(false);
@@ -163,6 +449,10 @@ export default function StoryMode() {
 
     setData((prevState) => ({ ...prevState, userMove }));
     if (data["leader"].pokemon.length == 0) {
+      let leaders = JSON.parse(sessionStorage.getItem("leaders"));
+      leaders.shift();
+      sessionStorage["leaders"] = JSON.stringify(leaders);
+
       setAutoAttack(true);
       setData((prevState) => ({
         ...prevState,

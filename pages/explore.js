@@ -92,6 +92,9 @@ export default function Explore() {
   };
 
   const generatePokemon = (id, props) => {
+    console.log("This is ID: " + id);
+    console.log(rarity[`${props}`]);
+
     return rarity[`${props}`].filter((pokemon) => pokemon.pokemonId === id);
   };
 
@@ -101,10 +104,16 @@ export default function Explore() {
     // let rand = randomInt(length);
 
     let group = level[`${props}`];
+    console.log(group);
     let length = group.length;
+    console.log(length);
     let rand = randomInt(length);
+    console.log(rand);
     let chosenLevel = group[rand];
+    console.log(chosenLevel);
     let wildPokemon = generatePokemon(chosenLevel, props);
+
+    console.log(wildPokemon);
 
     // let chosenLevel = group[rand];
     // let wildPokemon = generatePokemon(chosenLevel);

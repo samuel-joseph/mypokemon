@@ -11,7 +11,6 @@ export default function ViewPokemon() {
   useEffect(() => {
     // const leaders = JSON.parse(sessionStorage.getItem("leaders"));
     const data = JSON.parse(sessionStorage.getItem("pokemon") || "[]");
-    console.log(data);
     if (Array.isArray(data)) {
       setPokemons([...data]);
     } else {
