@@ -2,7 +2,8 @@ import styles from "../styles/StoryMode.module.css";
 import React, { useEffect, useState } from "react";
 import LeaderContainer from "./leaderContainer";
 import ChoosePokemon from "./choosePokemon";
-import ProgressBar from "./progressBar";
+import ProgressBar from "./storyProgressBar";
+import MoveBar from "./moveBar";
 
 export default function StoryMode() {
   const [autoAttack, setAutoAttack] = useState(false);
@@ -17,11 +18,13 @@ export default function StoryMode() {
     userMove: null,
     npcMove: null,
     battleEnd: false,
+    evolution: null,
     win: null,
   });
   useEffect(() => {
     const leaders = JSON.parse(sessionStorage.getItem("leaders"));
     let inventory = JSON.parse(sessionStorage.getItem("pokemon"));
+    let evolution = JSON.parse(sessionStorage.getItem("evolution"));
     let leader;
     leader = leaders.shift();
 
@@ -29,17 +32,17 @@ export default function StoryMode() {
       ...prevState,
       leader,
       inventory,
+      evolution,
     }));
   }, []);
 
   const typeAdvantage = (moveType, pokemonType) => {
     switch (moveType) {
       case "Dragon":
-        switch (pokemonType) {
-          case "Dragon":
-            return 2;
-          default:
-            return 1;
+        if (pokemonType == "Dragon") {
+          return 2;
+        } else {
+          return 1;
         }
       case "Ghost":
         switch (pokemonType) {
@@ -453,6 +456,35 @@ export default function StoryMode() {
       leaders.shift();
       sessionStorage["leaders"] = JSON.stringify(leaders);
 
+      // for (let pokemon of data["userPokemonsTemp"]) {
+      //   let currentExperience = pokemon.currentExperience;
+      //   let totalExperience = pokemon.totalExperience;
+      //   let gainXp = 100 * data["leader"].pokemon.length;
+      //   let evolution = data["evolution"];
+      //   let level = pokemon.level;
+
+      //   gaining();
+
+      //   function gaining() {
+      //     currentExperience += gainXp;
+      //     if (currentExperience >= totalExperience) {
+      //       level++;
+      //       if (level != 50 && (level == 15 || level == 30)) {
+      //         let newId = pokemon.id + 1;
+      //         let newEvolve = evolution.filter(
+      //           (monster) => monster.pokemonId === newId
+      //         );
+
+      //         pokemon = newEvolve;
+      //         console.log(pokemon);
+      //       }
+      //       gainXp = totalExperience - currentExperience;
+      //       currentExperience = 0;
+      //       gaining();
+      //     }
+      //   }
+      // }
+
       setAutoAttack(true);
       setData((prevState) => ({
         ...prevState,
@@ -499,22 +531,64 @@ export default function StoryMode() {
         data["userPokemons"].length != 0 &&
         data["leader"].pokemon.length != 0 && (
           <>
-            <h1>BATTLE</h1>
-            <div>
-              <div>
+            <div className={styles.battleContainer}>
+              <div className={styles.npcContainer}>
+                <p>
+                  LV {data["leader"].pokemon[0].level}{" "}
+                  {data["leader"].pokemon[0].name}
+                </p>
                 <ProgressBar
                   percentage={
                     (data["leader"].pokemon[0].currentHealth /
                       data["leader"].pokemon[0].health) *
                     100
                   }
+                  // clssName={true}
                 />
-                {/* {data["userMove"] && <img src={data["userMove"].animation} />} */}
-                <img src={data["leader"].pokemon[0].frontImage} />
+                <div className={styles.imageContainer}>
+                  {data["userMove"] && (
+                    <img
+                      className={styles.npcAnimation}
+                      src={data["userMove"].animation}
+                    />
+                  )}
+                  <div
+                    className={
+                      data["npcMove"] === null
+                        ? styles.npcImageContainer
+                        : styles.npcMoveImageContainer
+                    }
+                  >
+                    <img
+                      className={styles.npcImage}
+                      src={data["leader"].pokemon[0].frontImage}
+                    />
+                  </div>
+                </div>
               </div>
-              <div>
-                {/* {data["npcMove"] && <img src={data["npcMove"].animation} />} */}
-                <img src={data["userPokemons"][0].frontImage} />
+              <div className={styles.npcContainer}>
+                {data["npcMove"] && (
+                  <img
+                    className={styles.npcAnimation}
+                    src={data["npcMove"].animation}
+                  />
+                )}
+                <div
+                  className={
+                    userDisable
+                      ? styles.userMoveImageContainer
+                      : styles.userImageContainer
+                  }
+                >
+                  <img
+                    className={styles.userImage}
+                    src={data["userPokemons"][0].backImage}
+                  />
+                </div>
+                <p>
+                  LV{data["userPokemons"][0].level}{" "}
+                  {data["userPokemons"][0].name}
+                </p>
                 <ProgressBar
                   percentage={
                     (data["userPokemons"][0].currentHealth /
@@ -526,25 +600,28 @@ export default function StoryMode() {
             </div>
             <div>
               {data["userPokemons"][0].moves.map((move) => (
-                <>
+                <div className={styles.moveContainer}>
                   {move.gauge == 100 ? (
-                    <div>
+                    <div className={styles.chargedMove}>
                       <button
                         disabled={userDisable}
                         onClick={() => attackMove(move)}
                       >
-                        {move.name}
+                        <b>
+                          {move.name.toUpperCase()} - {move.attack}
+                        </b>
                       </button>
                     </div>
                   ) : (
-                    <div>
-                      <ProgressBar percentage={(move.gauge / 100) * 100} />
+                    <div className={styles.unchargedMove}>
+                      {move.name.toUpperCase()} - {move.attack}
+                      <MoveBar percentage={(move.gauge / 100) * 100} />
                     </div>
                   )}
-                </>
+                </div>
               ))}
             </div>
-            <div>
+            <div className={styles.sparePokemons}>
               {data["userPokemons"].map((pokemon) => (
                 <button onClick={() => switchPokemon(pokemon)}>
                   <img src={pokemon.frontImage} />

@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: black;
+  background-color: rgb(5, 5, 87);
   color: white;
   font-weight: bold;
 }

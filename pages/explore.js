@@ -28,6 +28,7 @@ export default function Explore() {
     wild: null,
     fainted: false,
     wildAppear: null,
+    wildLevel: null,
     wildMove: null,
     npcCounter: {
       special: 0,
@@ -113,14 +114,13 @@ export default function Explore() {
     console.log(chosenLevel);
     let wildPokemon = generatePokemon(chosenLevel, props);
 
-    console.log(wildPokemon);
-
     // let chosenLevel = group[rand];
     // let wildPokemon = generatePokemon(chosenLevel);
 
     setTemporary((prevState) => ({
       ...prevState,
       wildAppear: wildPokemon,
+      wildLevel: wildPokemon[0].level,
     }));
   };
 
@@ -489,9 +489,14 @@ export default function Explore() {
   };
 
   const exp = () => {
+    let bonusExp = 0;
     let pokemonVar = temporary["pokemon"];
     let evolution = rarity["evolution"];
     let chosenVar = temporary["chosen"];
+
+    let x = temporary["wildLevel"];
+    x *= 2;
+    bonusExp += x * 10;
 
     pokemonVar.splice(
       pokemonVar.findIndex(
@@ -505,7 +510,7 @@ export default function Explore() {
     for (const [i, pokemon] of pokemonVar.entries()) {
       pokemon["currentHealth"] = pokemon["health"];
       if (pokemon["level"] != 50) {
-        pokemon["currentExperience"] += 500 / pokemon["level"];
+        pokemon["currentExperience"] += (500 + bonusExp) / pokemon["level"];
         if (pokemon["currentExperience"] >= 100) {
           pokemon["level"]++;
           pokemon["currentHealth"] += 2;
@@ -534,7 +539,7 @@ export default function Explore() {
 
     chosenVar["currentHealth"] = chosenVar["health"];
     if (chosenVar["level"] != 50) {
-      chosenVar["currentExperience"] += 1000 / chosenVar["level"];
+      chosenVar["currentExperience"] += (1000 + bonusExp) / chosenVar["level"];
       if (chosenVar["currentExperience"] >= 100) {
         chosenVar["level"]++;
         chosenVar["currentHealth"] += 2;
@@ -796,13 +801,6 @@ export default function Explore() {
                   onClick={() => groupChosen("legend")}
                 >
                   LEGEND
-                </button>
-
-                <button
-                  className={styles.rowEach}
-                  onClick={() => groupChosen("legend")}
-                >
-                  <Link href="/mewtwo">LEGEND</Link>
                 </button>
               </>
             )}
