@@ -66,6 +66,7 @@ export default function Explore() {
         }));
 
         const data = JSON.parse(sessionStorage.getItem("pokemon") || "[]");
+        const leaders = JSON.parse(sessionStorage.getItem("leaders") || "[]");
         if (Array.isArray(data)) {
           pokemonVar = [...data];
         } else {
@@ -79,7 +80,7 @@ export default function Explore() {
           }
         }
 
-        setUserLevel(highestLevel);
+        setUserLevel(leaders.length);
 
         setTemporary((prevState) => ({
           ...prevState,
@@ -507,6 +508,12 @@ export default function Explore() {
       1
     );
 
+    for (let move of chosenVar.moves) {
+      if (move.level != "weak") {
+        move.gauge = 0;
+      }
+    }
+
     for (const [i, pokemon] of pokemonVar.entries()) {
       pokemon["currentHealth"] = pokemon["health"];
       if (pokemon["level"] != 50) {
@@ -519,7 +526,7 @@ export default function Explore() {
 
           if (
             !pokemon["fullyEvolved"] &&
-            (pokemon["level"] === 15 || pokemon["level"] === 30)
+            (pokemon["level"] === 2 || pokemon["level"] === 30)
           ) {
             let newId = pokemon["pokemonId"] + 1;
             let newEvolved = evolution.filter(
@@ -549,12 +556,16 @@ export default function Explore() {
         );
         if (
           !chosenVar["fullyEvolved"] &&
-          (chosenVar["level"] === 15 || chosenVar["level"] === 30)
+          (chosenVar["level"] === 2 || chosenVar["level"] === 16)
         ) {
           let newId = chosenVar["pokemonId"] + 1;
           let newEvolved = evolution.filter((data) => data.pokemonId === newId);
-          let nickName = chosenVar.name;
-          newEvolved[0].name = nickName;
+
+          chosenVar["backImage"] = newEvolved[0].backImage;
+          if (chosenVar.name != newEvolved[0].name) {
+            let nickName = chosenVar.name;
+            newEvolved[0].name = nickName;
+          }
           chosenVar = newEvolved;
           // chosenVar["currentHealth"] = chosenVar["health"];
         }
@@ -688,10 +699,15 @@ export default function Explore() {
               <div className={styles.wildAppear}>
                 {temporary["wildAppear"][0] && (
                   <>
-                    <p>A wild {temporary["wildAppear"][0].name} appeared!</p>
-                    <div>
+                    <p style={{ backgroundColor: "black" }}>
+                      A wild {temporary["wildAppear"][0].name} appeared!
+                    </p>
+                    <div style={{ display: "flex", alignItems: "center" }}>
                       <img src={temporary["wildAppear"][0].frontImage} />
+                      VS
+                      {ignite && <img src={temporary["chosen"].frontImage} />}
                     </div>
+
                     {ignite && (
                       <button className={styles.toBattle} onClick={npcMoves}>
                         BATTLE
@@ -700,7 +716,7 @@ export default function Explore() {
                   </>
                 )}
               </div>
-              <p className={styles.unnecessary}>
+              <p style={{ backgroundColor: "black", textAlign: "center" }}>
                 Which one of your pokemons should you choose to battle?
               </p>
               <div className={styles.optionPokemon}>
@@ -771,36 +787,61 @@ export default function Explore() {
       ) : (
         <>
           <h1>WELCOME TO THE WILD</h1>
+          {console.log(rarity)}
           <div id="test" className={styles.rowOption}>
             <button
               className={styles.rowEach}
               onClick={() => groupChosen("common")}
             >
-              COMMON
+              <h2 style={{ color: "white" }}>ROUTE 1</h2>
+              <div className={styles.pokemonList}>
+                {rarity["common"] &&
+                  rarity.common.map((pokemon) => (
+                    <img src={pokemon.frontImage} />
+                  ))}
+              </div>
             </button>
-            {userLevel >= 5 && (
+            {userLevel <= 10 && (
               <button
                 className={styles.rowEach}
                 onClick={() => groupChosen("rare")}
               >
-                RARE
+                <h2 style={{ color: "white" }}>ROUTE 15</h2>
+                <div className={styles.pokemonList}>
+                  {rarity["rare"] &&
+                    rarity.rare.map((pokemon) => (
+                      <img src={pokemon.frontImage} />
+                    ))}
+                </div>
               </button>
             )}
-            {userLevel >= 15 && (
+            {userLevel <= 7 && (
               <button
                 className={styles.rowEach}
                 onClick={() => groupChosen("unique")}
               >
-                UNIQUE
+                <h2 style={{ color: "white" }}>ROUTE 30</h2>
+                <div className={styles.pokemonList}>
+                  {rarity["rare"] &&
+                    rarity.unique.map((pokemon) => (
+                      <img src={pokemon.frontImage} />
+                    ))}
+                </div>
               </button>
             )}
-            {userLevel >= 30 && (
+            {userLevel <= 5 && (
               <>
                 <button
                   className={styles.rowEach}
                   onClick={() => groupChosen("legend")}
                 >
-                  LEGEND
+                  <h2 style={{ color: "white" }}>VICTORY ROAD</h2>
+                  <div className={styles.pokemonList}>
+                    {rarity["rare"] &&
+                      rarity.legend.map((pokemon) => (
+                        <img src={pokemon.frontImage} />
+                      ))}
+                  </div>
                 </button>
               </>
             )}

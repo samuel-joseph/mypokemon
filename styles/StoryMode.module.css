@@ -114,8 +114,22 @@
   width: 10vw;
 }
 
+.npcImageRip {
+  width: 10vw;
+  animation: rip;
+  animation-iteration-count: initial;
+  animation-duration: 3s;
+}
+
 .userImage {
   width: 12vw;
+}
+
+.userImageRip {
+  width: 12vw;
+  animation: rip;
+  animation-iteration-count: initial;
+  animation-duration: 3s;
 }
 
 .moveContainer {
@@ -135,6 +149,7 @@
 }
 
 .chargedMove > button {
+  background-color: red;
   width: 100%;
   height: 5vh;
   border-radius: 20px;
@@ -154,7 +169,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 50px;
+  height: 100px;
   position: fixed;
   bottom: 0%;
   width: 100%;
@@ -167,6 +182,10 @@
   border: none;
 }
 
+.sparePokemons > button > img {
+  width: 5vw;
+}
+
 .npcAnimation {
   position: absolute;
   width: 20vw;
@@ -174,6 +193,12 @@
   opacity: 0;
   animation-iteration-count: infinite;
   animation-duration: 2s;
+}
+
+@keyframes rip {
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes npcmove {
@@ -195,33 +220,21 @@
 }
 
 @keyframes npcanimate {
-  00% {
+  0% {
     opacity: 1;
   }
-  5% {
+  99% {
     opacity: 0;
   }
-  10% {
+  100% {
     opacity: 1;
-  }
-  15% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0;
-  }
-  30% {
-    opacity: 1;
-  }
-  35% {
-    opacity: 0;
   }
 }
 
 @media (max-width: 600px) {
+  .sparePokemons > button > img {
+    width: 12vw;
+  }
   .moveContainer {
     width: 100vw;
   }
@@ -232,9 +245,18 @@
     width: 30vw;
   }
 
+  .npcImageRip {
+    width: 30vw;
+  }
+
   .userImage {
     width: 40vw;
   }
+
+  .userImageRip {
+    width: 40vw;
+  }
+
   .battleContainer {
     width: 100vw;
   }

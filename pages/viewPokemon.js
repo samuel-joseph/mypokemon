@@ -1,12 +1,10 @@
 import styles from "../styles/ViewPokemon.module.css";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import Categories from "./home";
 import ProgressBar from "./progressBar";
 
 export default function ViewPokemon() {
   const [pokemons, setPokemons] = useState();
-  const [arrange, setArrange] = useState(false);
 
   useEffect(() => {
     // const leaders = JSON.parse(sessionStorage.getItem("leaders"));
@@ -17,21 +15,6 @@ export default function ViewPokemon() {
       setPokemons([data]);
     }
   }, []);
-
-  const freePokemon = (props) => {
-    let oldPokemons = pokemons;
-    let index = oldPokemons.findIndex(
-      (i) => i.currentExperience === props.currentExperience
-    );
-    console.log(oldPokemons);
-    oldPokemons.splice(index, 1);
-    console.log(oldPokemons);
-    setPokemons((prevState) => [...prevState], oldPokemons);
-  };
-
-  const saveData = () => {
-    sessionStorage.setItem("pokemon", JSON.stringify(pokemons));
-  };
 
   return (
     <div className={styles.container}>
@@ -62,7 +45,6 @@ export default function ViewPokemon() {
                 <div>
                   <p>Type:{pokemon.type}</p>
                   <p>Level {pokemon.level}</p>
-                  <button onClick={() => freePokemon(pokemon)}>FREE</button>
                 </div>
               </div>
               <h3>MOVES</h3>
@@ -80,9 +62,6 @@ export default function ViewPokemon() {
               ))}
             </div>
           ))}
-          <button className={styles.buttonSave} onClick={() => saveData()}>
-            SAVE
-          </button>
         </div>
       )}
     </div>

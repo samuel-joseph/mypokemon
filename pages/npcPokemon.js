@@ -5,7 +5,8 @@ import ProgressBar from "./progressBar";
 export default function NpcPokemon(props) {
   return (
     <>
-      <p className={styles.npcHp}>
+      <p style={{ color: "white" }} className={styles.npcHp}>
+        LV{props.npc.level} {props.npc.name}
         <ProgressBar
           percentage={(props.npc.currentHealth / props.npc.health) * 100}
         />

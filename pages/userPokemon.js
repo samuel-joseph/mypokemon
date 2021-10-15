@@ -28,6 +28,7 @@ export default function UserPokemon(props) {
         </div>
         <div className={styles.userDetails}>
           <p>
+            LV{props.user.level} {props.user.name}
             <ProgressBar
               percentage={(props.user.currentHealth / props.user.health) * 100}
             />

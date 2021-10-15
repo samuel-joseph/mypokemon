@@ -8,6 +8,20 @@ import MoveBar from "./moveBar";
 export default function StoryMode() {
   const [autoAttack, setAutoAttack] = useState(false);
   const [userDisable, setUserDisable] = useState(false);
+  const color = {
+    Grass: "green",
+    Fire: "red",
+    Normal: "white",
+    Dragon: "purple",
+    Poison: "violet",
+    Electric: "yellow",
+    Water: "blue",
+    Bug: "light green",
+    Flying: "white",
+    Rock: "dark brown",
+    Ground: "light brown",
+    Psychic: "pink",
+  };
   const [data, setData] = useState({
     userPokemonsTemp: null,
     leader: null,
@@ -380,16 +394,22 @@ export default function StoryMode() {
 
           setData((prevState) => ({ ...prevState, npcMove }));
           if (userPokemons[0].currentHealth <= 0) {
-            userPokemons.splice(0, 1);
+            if (userPokemons.length > 1) {
+              userPokemons.splice(0, 1);
+            } else {
+              userPokemons[0].currentHealth = 0;
+
+              setTimeout(function () {
+                userPokemons.splice(0, 1);
+                setData((prevState) => ({
+                  ...prevState,
+                  battleEnd: true,
+                  win: false,
+                }));
+              }, 2000);
+            }
             clearInterval(autoNpc);
             setAutoAttack(false);
-            if (userPokemons.length == 0) {
-              setData((prevState) => ({
-                ...prevState,
-                battleEnd: true,
-                win: false,
-              }));
-            }
           }
         }
       }, 2000);
@@ -436,13 +456,26 @@ export default function StoryMode() {
       setData((prevState) => ({ ...prevState, userMove: null }));
     }, 2000);
 
-    console.log(userMove.attack * typeBonus);
-
     currentNpc.currentHealth =
       currentNpc.currentHealth - userMove.attack * typeBonus;
 
-    if (currentNpc.currentHealth <= 0) {
+    if (currentNpc.currentHealth <= 0 && leader.length > 1) {
       leader.splice(0, 1);
+    } else if (leader.length == 1 && currentNpc.currentHealth <= 0) {
+      currentNpc.currentHealth = 0;
+      setTimeout(function () {
+        leader.splice(0, 1);
+        setAutoAttack(false);
+        setData((prevState) => ({
+          ...prevState,
+          battleEnd: true,
+          win: true,
+        }));
+
+        let leaders = JSON.parse(sessionStorage.getItem("leaders"));
+        leaders.shift();
+        sessionStorage["leaders"] = JSON.stringify(leaders);
+      }, 2000);
     }
 
     setUserDisable(true);
@@ -451,47 +484,6 @@ export default function StoryMode() {
     }, 2000);
 
     setData((prevState) => ({ ...prevState, userMove }));
-    if (data["leader"].pokemon.length == 0) {
-      let leaders = JSON.parse(sessionStorage.getItem("leaders"));
-      leaders.shift();
-      sessionStorage["leaders"] = JSON.stringify(leaders);
-
-      // for (let pokemon of data["userPokemonsTemp"]) {
-      //   let currentExperience = pokemon.currentExperience;
-      //   let totalExperience = pokemon.totalExperience;
-      //   let gainXp = 100 * data["leader"].pokemon.length;
-      //   let evolution = data["evolution"];
-      //   let level = pokemon.level;
-
-      //   gaining();
-
-      //   function gaining() {
-      //     currentExperience += gainXp;
-      //     if (currentExperience >= totalExperience) {
-      //       level++;
-      //       if (level != 50 && (level == 15 || level == 30)) {
-      //         let newId = pokemon.id + 1;
-      //         let newEvolve = evolution.filter(
-      //           (monster) => monster.pokemonId === newId
-      //         );
-
-      //         pokemon = newEvolve;
-      //         console.log(pokemon);
-      //       }
-      //       gainXp = totalExperience - currentExperience;
-      //       currentExperience = 0;
-      //       gaining();
-      //     }
-      //   }
-      // }
-
-      setAutoAttack(true);
-      setData((prevState) => ({
-        ...prevState,
-        battleEnd: true,
-        win: true,
-      }));
-    }
   };
 
   const switchPokemon = (props) => {
@@ -560,7 +552,11 @@ export default function StoryMode() {
                     }
                   >
                     <img
-                      className={styles.npcImage}
+                      className={
+                        data["leader"].pokemon[0].currentHealth == 0
+                          ? styles.npcImageRip
+                          : styles.npcImage
+                      }
                       src={data["leader"].pokemon[0].frontImage}
                     />
                   </div>
@@ -581,7 +577,11 @@ export default function StoryMode() {
                   }
                 >
                   <img
-                    className={styles.userImage}
+                    className={
+                      data["userPokemons"][0].currentHealth == 0
+                        ? styles.userImageRip
+                        : styles.userImage
+                    }
                     src={data["userPokemons"][0].backImage}
                   />
                 </div>
@@ -599,27 +599,32 @@ export default function StoryMode() {
               </div>
             </div>
             <div>
-              {data["userPokemons"][0].moves.map((move) => (
-                <div className={styles.moveContainer}>
-                  {move.gauge == 100 ? (
-                    <div className={styles.chargedMove}>
-                      <button
-                        disabled={userDisable}
-                        onClick={() => attackMove(move)}
-                      >
-                        <b>
+              {data && data["userPokemons"][0].currentHealth != 0 && (
+                <>
+                  {data["userPokemons"][0].moves.map((move) => (
+                    <div className={styles.moveContainer}>
+                      {move.gauge >= 100 ? (
+                        <div className={styles.chargedMove}>
+                          <button
+                            disabled={userDisable}
+                            onClick={() => attackMove(move)}
+                            style={{ backgroundColor: color[`${move.type}`] }}
+                          >
+                            <b>
+                              {move.name.toUpperCase()} - {move.attack}
+                            </b>
+                          </button>
+                        </div>
+                      ) : (
+                        <div className={styles.unchargedMove}>
                           {move.name.toUpperCase()} - {move.attack}
-                        </b>
-                      </button>
+                          <MoveBar percentage={(move.gauge / 100) * 100} />
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className={styles.unchargedMove}>
-                      {move.name.toUpperCase()} - {move.attack}
-                      <MoveBar percentage={(move.gauge / 100) * 100} />
-                    </div>
-                  )}
-                </div>
-              ))}
+                  ))}
+                </>
+              )}
             </div>
             <div className={styles.sparePokemons}>
               {data["userPokemons"].map((pokemon) => (

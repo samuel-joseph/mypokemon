@@ -12,17 +12,17 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <Link href="/newGame">New Game</Link>
+        <Link href="/newGame">NEW GAME</Link>
       </div>
       <div className={styles.row}>
-        <Link href="/viewPokemon">View Pokemon</Link>
+        <Link href="/viewPokemon">VIEW POKEMON</Link>
       </div>
       <div className={styles.row}>
-        <Link href="/explore">Explore World</Link>
+        <Link href="/explore">EXPLORE WORLD</Link>
       </div>
       {Len > 1 && (
         <div className={styles.row}>
-          <Link href="/storyMode">Story Mode</Link>
+          <Link href="/storyMode">STORY MODE</Link>
         </div>
       )}
     </div>

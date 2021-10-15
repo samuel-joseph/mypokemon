@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(13, 95, 13);
+  /* background-color: rgb(13, 95, 13); */
+  background-image: url("https://i.ytimg.com/vi/9TlmBmMonIc/maxresdefault.jpg");
   color: white;
   font-weight: bold;
 }
@@ -19,12 +20,10 @@
   justify-content: center;
   align-items: center;
   color: black;
-  background-color: rgb(13, 95, 13);
+  background-color: rgba(0, 95, 13, 0.7);
   width: 80%;
   height: 50vh;
-  margin-top: 5vh;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  /* margin-top: 5vh; */
 }
 
 .rowOption {
@@ -62,10 +61,11 @@
   /* position: absolute; */
 }
 
-.unnecessary {
+/* .unnecessary {
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.507);
   width: 75vw;
-}
+} */
 
 .optionPokemon {
   display: flex;
@@ -79,11 +79,12 @@
 .optionHolder {
   /* margin: 0 2vw; */
   /* height: 20vh; */
-  background-color: rgb(13, 95, 13);
+  background-color: rgba(13, 95, 13, 0.521);
 }
 
 .optionButton {
-  background-color: rgb(13, 95, 13);
+  background-color: rgb(13, 95, 13, 0.521);
+  background: none;
   color: white;
   border-style: none;
 }
@@ -211,16 +212,44 @@
   width: 60%;
 }
 
+/* .rowEach {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: 0.5% 2%;
+  background-color: red;
+  border-radius: 200px;
+} */
+
 .rowEach {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 50%;
   padding: 2% 2%;
   margin: 0.5% 2%;
   background-color: red;
-  border-radius: 20px;
+  border-radius: 200px;
+}
+
+.rowEach > h2 {
+  font-size: larger;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.596);
+}
+
+.pokemonList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.pokemonList > img {
+  width: 15%;
 }
 
 .rowEach2 {

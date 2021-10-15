@@ -16,7 +16,7 @@ export default function ChoosePokemon(props) {
             className={styles.optionPokemon}
             onClick={() => props.removePokemon(pokemon)}
           >
-            <img src={pokemon.frontImage} />
+            <img style={{ width: "13vw" }} src={pokemon.frontImage} />
           </button>
         ))}
       </div>

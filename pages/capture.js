@@ -56,7 +56,7 @@ export default function Capture(props) {
         console.log(num);
         if (num < 30) {
           changeImage(
-            "http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/abc457fc9571e42.png",
+            "https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png",
             `You have successfully captured ${props.pokemon.name}! Please provide a nickname`,
             true
           );
