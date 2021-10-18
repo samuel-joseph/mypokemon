@@ -7,6 +7,8 @@ import MoveBar from "./moveBar";
 
 export default function StoryMode() {
   const [autoAttack, setAutoAttack] = useState(false);
+  // const [userPokemons, setUserPokemons] = useState([]);
+  let userPokemonsSpare = [];
   const [userDisable, setUserDisable] = useState(false);
   const color = {
     Grass: "green",
@@ -23,7 +25,6 @@ export default function StoryMode() {
     Psychic: "pink",
   };
   const [data, setData] = useState({
-    userPokemonsTemp: null,
     leader: null,
     pokemonOption: false,
     inventory: null,
@@ -309,10 +310,12 @@ export default function StoryMode() {
     inventory.splice(index, 1);
     userPokemons.push(props);
 
+    // setUserPokemons(userPokemons);
+    userPokemonsSpare = userPokemons;
+
     setData((prevState) => ({
       ...prevState,
       userPokemons,
-      userPokemonsTemp: userPokemons,
       inventory,
     }));
   };
@@ -375,20 +378,16 @@ export default function StoryMode() {
           let typeBonus = 1;
 
           if (typeMove === typePokemon) {
-            typeBonus = 1.2;
+            typeBonus = 1.5;
           }
 
-          typeBonus *= leader.pokemon[0].level * 0.009;
-          let bonus = typeAdvantage(typeMove, leader.pokemon[0].type);
+          typeBonus *= leader.pokemon[0].level * 0.01;
+          let bonus = typeAdvantage(typeMove, userPokemons[0].type);
 
           typeBonus += bonus;
 
-          console.log(npcMove.attack * typeBonus);
-
           userPokemons[0].currentHealth =
             userPokemons[0].currentHealth - npcMove.attack * typeBonus;
-
-          // console.log(npcMove.attack * typeBonus);
 
           // userPokemons[0].currentHealth -= npcMove.attack;
 
@@ -430,7 +429,7 @@ export default function StoryMode() {
     let typeBonus = 1;
 
     if (typeMove === typePokemon) {
-      typeBonus = 1.2;
+      typeBonus = 1.5;
     }
 
     typeBonus *= userCurrent.level * 0.009;
@@ -451,13 +450,27 @@ export default function StoryMode() {
         }
       }
     }
+    // console.log(userMove.attack);
+    // if (currentNpc.level > userCurrent.level) {
+    //   userMove.attack =
+    //     userMove.attack -
+    //     userMove.attack * (0.01 * (currentNpc.level - userCurrent.level));
+    // }
 
+    console.log(userMove.attack);
     setTimeout(function () {
       setData((prevState) => ({ ...prevState, userMove: null }));
     }, 2000);
 
     currentNpc.currentHealth =
-      currentNpc.currentHealth - userMove.attack * typeBonus;
+      currentNpc.currentHealth -
+      (currentNpc.level > userCurrent.level
+        ? userMove.attack -
+          userMove.attack * (0.01 * (currentNpc.level - userCurrent.level))
+        : userMove.attack) *
+        typeBonus;
+
+    console.log(currentNpc.currentHealth);
 
     if (currentNpc.currentHealth <= 0 && leader.length > 1) {
       leader.splice(0, 1);

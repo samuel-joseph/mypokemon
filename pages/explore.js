@@ -16,6 +16,7 @@ export default function Explore() {
     unique: null,
     evolution: null,
   });
+  const [legendHolder, setLegendHolder] = useState(false);
   const [pick, setPick] = useState(false);
   const [newPokemon, setNewPokemon] = useState(false);
   const [ignite, setIgnite] = useState(false);
@@ -44,7 +45,8 @@ export default function Explore() {
   const [userLevel, setUserLevel] = useState(0);
 
   const level = {
-    common: [19, 16, 37, 60, 43],
+    // common: [19, 16, 37, 60, 43],
+    common: [60],
     rare: [25, 129, 120, 93, 64, 75],
     unique: [134, 135, 136, 142, 147, 143, 131],
     legend: [144, 146, 145],
@@ -79,6 +81,15 @@ export default function Explore() {
             highestLevel = pokemon.level;
           }
         }
+
+        let legendHolder = pokemonVar.filter(
+          (pokemon) =>
+            pokemon.name == "Moltres" ||
+            pokemon.name == "Zapdos" ||
+            pokemon.name == "Articuno"
+        );
+
+        setLegendHolder(legendHolder.length);
 
         setUserLevel(leaders.length);
 
@@ -517,57 +528,85 @@ export default function Explore() {
     for (const [i, pokemon] of pokemonVar.entries()) {
       pokemon["currentHealth"] = pokemon["health"];
       if (pokemon["level"] != 50) {
-        pokemon["currentExperience"] += (500 + bonusExp) / pokemon["level"];
+        pokemon["currentExperience"] += (200 + bonusExp) / pokemon["level"];
         if (pokemon["currentExperience"] >= 100) {
-          pokemon["level"]++;
-          pokemon["currentHealth"] += 2;
-          pokemon["health"] += 2;
-          pokemon["currentExperience"] = overExp(pokemon["currentExperience"]);
+          expBoost();
+          function expBoost() {
+            pokemon["level"]++;
+            pokemon["currentHealth"] += 2;
+            pokemon["health"] += 2;
 
-          if (
-            !pokemon["fullyEvolved"] &&
-            (pokemon["level"] === 2 || pokemon["level"] === 30)
-          ) {
-            let newId = pokemon["pokemonId"] + 1;
-            let newEvolved = evolution.filter(
-              (data) => data.pokemonId === newId
-            );
-            pokemonVar.splice(i, 1);
-            if (Array.isArray(newEvolved)) {
-              newEvolved = [...newEvolved];
-              pokemonVar.push(newEvolved.pop());
-            } else {
-              pokemonVar.push(newEvolved);
+            if (
+              !pokemon["fullyEvolved"] &&
+              (pokemon["level"] === 15 || pokemon["level"] === 30)
+            ) {
+              let newId = pokemon["pokemonId"] + 1;
+              let newEvolved = evolution.filter(
+                (data) => data.pokemonId === newId
+              );
+              pokemonVar.splice(i, 1);
+              if (Array.isArray(newEvolved)) {
+                newEvolved = [...newEvolved];
+                pokemonVar.push(newEvolved.pop());
+              } else {
+                pokemonVar.push(newEvolved);
+              }
             }
+
+            if (pokemon["currentExperience"] > 100) {
+              pokemon["currentExperience"] = pokemon["currentExperience"] - 100;
+              if (pokemon["currentExperience"] >= 100) {
+                expBoost();
+              }
+            } else {
+              pokemon["currentExperience"] = 100 - pokemon["currentExperience"];
+            }
+
+            console.log(pokemon);
           }
         }
       }
     }
 
     chosenVar["currentHealth"] = chosenVar["health"];
-    if (chosenVar["level"] != 50) {
-      chosenVar["currentExperience"] += (1000 + bonusExp) / chosenVar["level"];
-      if (chosenVar["currentExperience"] >= 100) {
-        chosenVar["level"]++;
-        chosenVar["currentHealth"] += 2;
-        chosenVar["health"] += 2;
-        chosenVar["currentExperience"] = overExp(
-          chosenVar["currentExperience"]
-        );
-        if (
-          !chosenVar["fullyEvolved"] &&
-          (chosenVar["level"] === 2 || chosenVar["level"] === 16)
-        ) {
-          let newId = chosenVar["pokemonId"] + 1;
-          let newEvolved = evolution.filter((data) => data.pokemonId === newId);
 
-          chosenVar["backImage"] = newEvolved[0].backImage;
-          if (chosenVar.name != newEvolved[0].name) {
-            let nickName = chosenVar.name;
-            newEvolved[0].name = nickName;
+    if (chosenVar["level"] != 50) {
+      chosenVar["currentExperience"] += (400 + bonusExp) / chosenVar["level"];
+      if (chosenVar["currentExperience"] >= 100) {
+        expBoost();
+
+        function expBoost() {
+          chosenVar["level"]++;
+          chosenVar["currentHealth"] += 2;
+          chosenVar["health"] += 2;
+
+          if (
+            !chosenVar["fullyEvolved"] &&
+            (chosenVar["level"] === 15 || chosenVar["level"] === 16)
+          ) {
+            let newId = chosenVar["pokemonId"] + 1;
+            let newEvolved = evolution.filter(
+              (data) => data.pokemonId === newId
+            );
+
+            chosenVar["backImage"] = newEvolved[0].backImage;
+            if (chosenVar.name != newEvolved[0].name) {
+              let nickName = chosenVar.name;
+              newEvolved[0].name = nickName;
+            }
+            chosenVar = newEvolved;
           }
-          chosenVar = newEvolved;
-          // chosenVar["currentHealth"] = chosenVar["health"];
+
+          if (chosenVar["currentExperience"] > 100) {
+            chosenVar["currentExperience"] =
+              chosenVar["currentExperience"] - 100;
+            if (chosenVar["currentExperience"] >= 100) {
+              expBoost();
+            }
+          } else {
+            chosenVar["currentExperience"] =
+              100 - chosenVar["currentExperience"];
+          }
         }
       }
     }
@@ -750,6 +789,11 @@ export default function Explore() {
                   ))}
                 </>
               )}
+              {temporary["chosen"].currentHealth <= 0 && (
+                <button style={{ padding: "2vh 5vw", borderRadius: "20px" }}>
+                  <Link href="/viewPokemon">LEAVE</Link>
+                </button>
+              )}
               {!temporary["fainted"] && (
                 <>
                   {temporary["chosen"] && (
@@ -829,7 +873,7 @@ export default function Explore() {
                 </div>
               </button>
             )}
-            {userLevel <= 5 && (
+            {userLevel <= 5 && legendHolder == 0 && (
               <>
                 <button
                   className={styles.rowEach}

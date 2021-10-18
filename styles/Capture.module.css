@@ -3,21 +3,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: black;
+  color: white;
   /* background-color: black; */
-  width: 80%;
+  width: 100%;
   height: 50vh;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  font-size: small;
+  font-size: large;
 }
 
 .ball {
-  width: 100%;
+  width: 10vw;
 }
 
 .base {
-  width: 75w;
+  display: flex;
+  align-items: center;
 }
 
 .smallCircle {
@@ -112,8 +113,8 @@
 }
 
 .image {
-  position: absolute;
-  /* padding: 0 2vw; */
+  /* position: absolute; */
+  /* padding: 0 1vw; */
   width: 10vw;
 }
 @media (max-width: 600px) {
@@ -135,7 +136,7 @@
     }
   }
   .image {
-    width: 40vw;
+    width: 20vw;
   }
 
   .bigCircle {
@@ -151,5 +152,9 @@
   .circle1 {
     width: 100vw;
     height: 42vh;
+  }
+
+  .ball {
+    width: 50vw;
   }
 }

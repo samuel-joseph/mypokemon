@@ -10,16 +10,231 @@
 
 .main {
   padding: 5rem 0;
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.openingFont {
+  padding: 5rem 0;
+  letter-spacing: -1px;
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 36pt;
+  animation: title;
+  animation-iteration-count: initial;
+  animation-duration: 6s;
+  opacity: 1;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  position: fixed;
+  bottom: 0%;
+  width: 100%;
+  opacity: 1;
+  animation: buttonfx;
+  animation-iteration-count: initial;
+  animation-duration: 7s;
+  opacity: 1;
+}
+
+@keyframes buttonfx {
+  0% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes title {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0.1;
+  }
+  91% {
+    opacity: 0.2;
+  }
+  92% {
+    opacity: 0.3;
+  }
+  93% {
+    opacity: 0.4;
+  }
+  94% {
+    opacity: 0.5;
+  }
+  95% {
+    opacity: 0.6;
+  }
+  96% {
+    opacity: 0.7;
+  }
+  97% {
+    opacity: 0.8;
+  }
+  98% {
+    opacity: 0.9;
+  }
+  99% {
+    opacity: 1;
+  }
+  /* 100% {
+    opacity: 0.;
+  } */
+}
+
+.charizardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 30vw;
+  animation: charizardMove;
+  animation-iteration-count: initial;
+  animation-duration: 1s;
+}
+
+.charizard {
+  width: 15vw;
+}
+
+.hydroPump {
+  position: absolute;
+  width: 15vw;
+  animation: hydro;
+  animation-iteration-count: initial;
+  animation-duration: 5s;
+  opacity: 0;
+}
+
+@keyframes hydro {
+  0% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fireBlast {
+  position: absolute;
+  width: 15vw;
+  animation: fire;
+  animation-iteration-count: initial;
+  animation-duration: 2s;
+  opacity: 0;
+}
+
+@keyframes fire {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes charizardMove {
+  0% {
+    padding-right: 0;
+  }
+  50% {
+    padding-right: 4vw;
+  }
+  100% {
+    padding-right: 0;
+  }
+}
+
+.blastoiseContainer {
+  position: absolute;
+  width: 30vw;
+  animation: blastoiseMove;
+  animation-iteration-count: initial;
+  animation-duration: 3s;
+}
+
+.blastoise {
+  width: 15vw;
+}
+
+@keyframes blastoiseMove {
+  0% {
+    padding-left: 0;
+  }
+  60% {
+    padding-left: 0;
+  }
+  75% {
+    padding-left: 4vw;
+  }
+  100% {
+    padding-left: 0;
+  }
+}
+
+.buttonGame {
+  height: 5%;
+  width: 10%;
+  border-radius: 20px;
+  font-weight: "bold";
+}
+
 @media (max-width: 600px) {
-  .grid {
+  .blastoise {
+    width: 50vw;
+  }
+  .blastoiseContainer {
+    width: 80vw;
+  }
+  .charizardContainer {
+    width: 80vw;
+  }
+  .charizard {
+    width: 50vw;
+  }
+  .openingFont {
+    font-size: 24pt;
+  }
+  .fireBlast {
+    width: 50%;
+  }
+  .hydroPump {
+    width: 50%;
+  }
+
+  .buttons {
+    width: 100vw;
+  }
+
+  .buttonGame {
+    width: 30vw;
+    font-weight: bold;
+    height: 8vh;
+  }
+  /* .grid {
     width: 100%;
     flex-direction: column;
-  }
+  } */
 }

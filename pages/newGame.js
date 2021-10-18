@@ -2,7 +2,6 @@ import styles from "../styles/NewGame.module.css";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
-import Categories from "./home";
 
 export default function NewGame() {
   const [starter, setStarter] = useState(null);
@@ -29,7 +28,7 @@ export default function NewGame() {
   const store = (props) => {
     setTrigger(true);
     setChosen(props);
-    setMessage("Give your pokemon a name!");
+    setMessage("Good luck!");
     // sessionStorage.setItem("pokemon", JSON.stringify(props));
   };
 
@@ -52,17 +51,9 @@ export default function NewGame() {
           {chosen && (
             <div className={styles.column}>
               <img className={styles.image} src={chosen.frontImage} />
-              <form>
-                <label>
-                  <input
-                    type="text"
-                    value={value}
-                    onChange={(event) => setValue(event.target.value)}
-                  />
-                </label>
-              </form>
+
               <Link href="/viewPokemon">
-                <button onClick={handleSubmit}>SUBMIT</button>
+                <button onClick={handleSubmit}>PROCEED</button>
               </Link>
             </div>
           )}
