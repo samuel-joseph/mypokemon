@@ -17,7 +17,7 @@ export default function LeaderContainer(props) {
               ))}
             </div>
           </div>
-          <p>"{props.leader[`${props.message}`]}"</p>
+          <p>{props.leader[`${props.message}`]}</p>
           {!props.battleEnd && (
             <button
               className={styles.green}
