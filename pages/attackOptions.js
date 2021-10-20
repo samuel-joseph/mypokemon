@@ -44,7 +44,7 @@ export default function AttackOptions(props) {
 
   return (
     <div className={styles.innerAttack}>
-      {props.move.gauge === 100 && (
+      {props && props.move.gauge === 100 && (
         <button
           className={styles.circleButton}
           onClick={() => props.userMove(props.move)}

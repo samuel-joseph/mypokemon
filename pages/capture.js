@@ -92,31 +92,35 @@ export default function Capture(props) {
   };
   return (
     <>
-      <div>
-        <div className={styles.base}>
-          {temporary["counter"] > 0 ? (
-            <div id="circ1" className={styles.circle1}>
-              <div
-                id="circ"
-                className={
-                  temporary["isClicked"] ? styles.smallCircle : styles.bigCircle
-                }
-              >
-                <button onClick={tap} className={styles.test}>
-                  <img
-                    className={styles.image}
-                    src={props.pokemon.frontImage}
-                  />
-                </button>
+      {props && (
+        <div>
+          <div className={styles.base}>
+            {temporary["counter"] > 0 ? (
+              <div id="circ1" className={styles.circle1}>
+                <div
+                  id="circ"
+                  className={
+                    temporary["isClicked"]
+                      ? styles.smallCircle
+                      : styles.bigCircle
+                  }
+                >
+                  <button onClick={tap} className={styles.test}>
+                    <img
+                      className={styles.image}
+                      src={props.pokemon.frontImage}
+                    />
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className={styles.row}>
-              <img className={styles.ball} src={temporary["image"]} />
-            </div>
-          )}
+            ) : (
+              <div className={styles.row}>
+                <img className={styles.ball} src={temporary["image"]} />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <div
         style={{
           position: "absolute",
