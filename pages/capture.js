@@ -9,7 +9,8 @@ export default function Capture(props) {
     counter: 2,
     num: 0,
     isClicked: false,
-    message: "",
+    message:
+      "Tap the pokemon the moment the blue circle hits the green circle!",
     image: "https://thumbs.gfycat.com/GenerousTimelyBrontosaurus-max-1mb.gif",
     success: false,
   });
@@ -50,6 +51,18 @@ export default function Capture(props) {
     temp = Math.abs(width - width1);
     num += temp;
     counter = counter - 1;
+
+    if (temp < 20 && num < 30) {
+      setTemporary((prevState) => ({
+        ...prevState,
+        message: "GOOD!",
+      }));
+    } else {
+      setTemporary((prevState) => ({
+        ...prevState,
+        message: "BAD!",
+      }));
+    }
 
     if (counter == 0) {
       setTimeout(function () {
@@ -100,12 +113,6 @@ export default function Capture(props) {
           ) : (
             <div className={styles.row}>
               <img className={styles.ball} src={temporary["image"]} />
-
-              {temporary["success"] && (
-                <form onSubmit={handleSubmit}>
-                  <input type="submit" value="PROCEED" />
-                </form>
-              )}
             </div>
           )}
         </div>
@@ -117,15 +124,34 @@ export default function Capture(props) {
           backgroundColor: "white",
           padding: "1vh 3vw",
           borderRadius: "20px",
+          fontWeight: "lighter",
+          fontSize: "8pt",
+        }}
+      >
+        {temporary && <p>{temporary["message"]}</p>}
+      </div>
+      <button
+        style={{
+          position: "absolute",
+          marginTop: "500px",
+          backgroundColor: "white",
+          padding: "1vh 3vw",
+          borderRadius: "20px",
           fontWeight: "bold",
         }}
       >
         {!temporary["success"] ? (
           <Link href="/viewPokemon">LEAVE</Link>
         ) : (
-          <p>{temporary["message"]}</p>
+          <form onSubmit={handleSubmit}>
+            <input
+              style={{ background: "none", border: "none", fontWeight: "bold" }}
+              type="submit"
+              value="PROCEED"
+            />
+          </form>
         )}
-      </div>
+      </button>
     </>
   );
 }

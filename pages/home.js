@@ -1,15 +1,22 @@
 import Link from "next/link";
 import styles from "../styles/Categories.module.css";
 import React, { useEffect, useState } from "react";
+import Index from "./index";
 
 export default function Home() {
   const [Len, setLen] = useState(0);
   useEffect(() => {
     let pokemons = JSON.parse(sessionStorage.getItem("pokemon"));
-    setLen(pokemons.length);
+    if (pokemons !== null) {
+      setLen(pokemons.length);
+    } else {
+      setLen(null);
+    }
   }, []);
 
   return (
+    // <>
+    //   {Len ? (
     <div className={styles.container}>
       <div className={styles.row}>
         <Link href="/">HOME</Link>
@@ -26,5 +33,9 @@ export default function Home() {
         </div>
       )}
     </div>
+    // ) : (
+    //   <Index />
+    //   )}
+    // </>
   );
 }

@@ -1,7 +1,6 @@
 import styles from "../styles/Explore.module.css";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Storage from "./storage";
 import Categories from "./home";
 import UserPokemon from "./userPokemon";
 import NpcPokemon from "./npcPokemon";
@@ -9,7 +8,6 @@ import AttackOptions from "./attackOptions";
 import Capture from "./capture";
 
 export default function Explore() {
-  // const [capture, setCapture] = useState(false);
   const [rarity, setRarity] = useState({
     common: null,
     rare: null,
@@ -17,7 +15,6 @@ export default function Explore() {
     evolution: null,
   });
   const [legendHolder, setLegendHolder] = useState(false);
-  const [pick, setPick] = useState(false);
   const [newPokemon, setNewPokemon] = useState(false);
   const [ignite, setIgnite] = useState(false);
   const [attack, setAttack] = useState(false);
@@ -52,6 +49,7 @@ export default function Explore() {
   };
 
   useEffect(() => {
+    console.log("CHECK");
     let pokemonVar;
 
     fetch("https://samuel-joseph.github.io/jsonapi/pokemon.json")
@@ -91,6 +89,7 @@ export default function Explore() {
         setLegendHolder(legendHolder.length);
 
         setUserLevel(leaders.length);
+        console.log(pokemonVar);
 
         setTemporary((prevState) => ({
           ...prevState,
@@ -594,7 +593,7 @@ export default function Explore() {
 
           if (
             !chosenVar["fullyEvolved"] &&
-            (chosenVar["level"] === 17 || chosenVar["level"] === 30)
+            (chosenVar["level"] === 15 || chosenVar["level"] === 30)
           ) {
             let newId = chosenVar["pokemonId"] + 1;
             let newEvolved = evolution.filter(
@@ -757,7 +756,7 @@ export default function Explore() {
     <div className={styles.container}>
       <Categories />
       {temporary["wildAppear"] ? (
-        <>
+        <div style={{ marginTop: "5px" }}>
           {!temporary["start"] ? (
             <>
               <div className={styles.wildAppear}>
@@ -861,7 +860,7 @@ export default function Explore() {
                 )}
             </>
           )}
-        </>
+        </div>
       ) : (
         <>
           <h1>WELCOME TO THE WILD</h1>
