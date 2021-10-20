@@ -13,6 +13,7 @@ export default function ChoosePokemon(props) {
       <div className={styles.pokemonChosen}>
         {props.userPokemon.map((pokemon) => (
           <button
+            key={pokemon.key}
             className={styles.optionPokemon}
             onClick={() => props.removePokemon(pokemon)}
           >
@@ -32,6 +33,7 @@ export default function ChoosePokemon(props) {
         <div className={styles.inventory}>
           {props.inventory.map((pokemon) => (
             <button
+              key={pokemon.key}
               className={styles.optionPokemon}
               onClick={() => props.chosenPokemon(pokemon)}
             >

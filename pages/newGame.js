@@ -61,7 +61,7 @@ export default function NewGame() {
           {starter && (
             <>
               {starter.map((pokemon) => (
-                <div className={styles.rowEach}>
+                <div key={pokemon.key} className={styles.rowEach}>
                   <img src={pokemon.frontImage} />
                   <button onClick={() => store(pokemon)}>Choose</button>
                 </div>

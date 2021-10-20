@@ -57,6 +57,7 @@ export default function Evolution() {
             <div className={styles.row}>
               {data.pokemons.map((pokemon) => (
                 <img
+                  key={pokemon.key}
                   src={pokemon.frontImage}
                   onClick={() => clicked(pokemon)}
                 />
@@ -68,12 +69,18 @@ export default function Evolution() {
               <>
                 <div className={styles.column}>
                   {data.queued.map((pokemon) => (
-                    <img className={styles.image} src={pokemon.frontImage} />
+                    <img
+                      key={pokemon.key}
+                      className={styles.image}
+                      src={pokemon.frontImage}
+                    />
                   ))}
                 </div>
                 {data.pokemons.length == 0 && (
                   <Link href="/viewPokemon">
-                    <button className={styles.button} onClick={() => store()}>SAVE</button>
+                    <button className={styles.button} onClick={() => store()}>
+                      SAVE
+                    </button>
                   </Link>
                 )}
               </>

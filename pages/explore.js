@@ -792,7 +792,7 @@ export default function Explore() {
               </p>
               <div className={styles.optionPokemon}>
                 {temporary["pokemon"].map((pokemon) => (
-                  <div className={styles.optionHolder}>
+                  <div key={pokemon.key} className={styles.optionHolder}>
                     <button
                       className={styles.optionButton}
                       onClick={() => beginBattle(pokemon)}
@@ -811,13 +811,13 @@ export default function Explore() {
               ) : (
                 <>
                   {temporary["wildAppear"].map((npc) => (
-                    <>
+                    <div key={npc.key}>
                       <NpcPokemon
                         chosenMove={temporary["chosenMove"]}
                         chosen={temporary["chosen"]}
                         npc={npc}
                       />
-                    </>
+                    </div>
                   ))}
                 </>
               )}
@@ -846,7 +846,7 @@ export default function Explore() {
                 temporary["wildAppear"][0].currentHealth > 0 && (
                   <>
                     {temporary["chosen"].moves.map((move) => (
-                      <>
+                      <div key={move.key}>
                         {move.gauge && temporary["wildMove"] && (
                           <AttackOptions
                             userMove={userMove}
@@ -854,7 +854,7 @@ export default function Explore() {
                             move={move}
                           />
                         )}
-                      </>
+                      </div>
                     ))}
                   </>
                 )}
@@ -874,7 +874,7 @@ export default function Explore() {
               <div className={styles.pokemonList}>
                 {rarity["common"] &&
                   rarity.common.map((pokemon) => (
-                    <img src={pokemon.frontImage} />
+                    <img key={pokemon.key} src={pokemon.frontImage} />
                   ))}
               </div>
             </button>
@@ -887,7 +887,7 @@ export default function Explore() {
                 <div className={styles.pokemonList}>
                   {rarity["rare"] &&
                     rarity.rare.map((pokemon) => (
-                      <img src={pokemon.frontImage} />
+                      <img key={pokemon.key} src={pokemon.frontImage} />
                     ))}
                 </div>
               </button>
@@ -901,7 +901,7 @@ export default function Explore() {
                 <div className={styles.pokemonList}>
                   {rarity["rare"] &&
                     rarity.unique.map((pokemon) => (
-                      <img src={pokemon.frontImage} />
+                      <img key={pokemon.key} src={pokemon.frontImage} />
                     ))}
                 </div>
               </button>
@@ -916,7 +916,7 @@ export default function Explore() {
                   <div className={styles.pokemonList}>
                     {rarity["rare"] &&
                       rarity.legend.map((pokemon) => (
-                        <img src={pokemon.frontImage} />
+                        <img key={pokemon.key} src={pokemon.frontImage} />
                       ))}
                   </div>
                 </button>

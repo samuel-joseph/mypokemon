@@ -611,7 +611,7 @@ export default function StoryMode() {
               {data && data["userPokemons"][0].currentHealth != 0 && (
                 <>
                   {data["userPokemons"][0].moves.map((move) => (
-                    <div className={styles.moveContainer}>
+                    <div key={move.key} className={styles.moveContainer}>
                       {move.gauge >= 100 ? (
                         <div className={styles.chargedMove}>
                           <button
@@ -637,7 +637,10 @@ export default function StoryMode() {
             </div>
             <div className={styles.sparePokemons}>
               {data["userPokemons"].map((pokemon) => (
-                <button onClick={() => switchPokemon(pokemon)}>
+                <button
+                  key={pokemon.key}
+                  onClick={() => switchPokemon(pokemon)}
+                >
                   <img src={pokemon.frontImage} />
                 </button>
               ))}

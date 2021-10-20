@@ -13,7 +13,7 @@ export default function LeaderContainer(props) {
             <img className={styles.leaderImage} src={props.leader.image} />
             <div className={styles.leaderPokemonContainer}>
               {props.leader.pokemon.map((pokemon) => (
-                <img src={pokemon.frontImage} />
+                <img key={pokemon.key} src={pokemon.frontImage} />
               ))}
             </div>
           </div>

@@ -27,7 +27,7 @@ export default function ViewPokemon() {
           {pokemons && (
             <div className={styles.row}>
               {pokemons.map((pokemon) => (
-                <div className={styles.rowEach}>
+                <div key={pokemon.key} className={styles.rowEach}>
                   <h2>{pokemon.name}</h2>
                   <div className={styles.rowEach2}>
                     <div>
@@ -54,7 +54,7 @@ export default function ViewPokemon() {
                   </div>
                   <h3>MOVES</h3>
                   {pokemon.moves.map((move) => (
-                    <div className={styles.rowEach2}>
+                    <div key={move.key} className={styles.rowEach2}>
                       <div>
                         <p>{move.name}</p>
                         <img
