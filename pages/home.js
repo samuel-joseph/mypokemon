@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <Link href="/newGame">NEW GAME</Link>
+        <Link href="/">HOME</Link>
       </div>
       <div className={styles.row}>
         <Link href="/viewPokemon">VIEW POKEMON</Link>

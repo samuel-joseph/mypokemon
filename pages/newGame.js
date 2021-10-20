@@ -2,7 +2,6 @@ import styles from "../styles/NewGame.module.css";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
-
 export default function NewGame() {
   const [starter, setStarter] = useState(null);
   const [chosen, setChosen] = useState(null);
@@ -29,7 +28,6 @@ export default function NewGame() {
     setTrigger(true);
     setChosen(props);
     setMessage("Good luck!");
-    // sessionStorage.setItem("pokemon", JSON.stringify(props));
   };
 
   const handleSubmit = () => {

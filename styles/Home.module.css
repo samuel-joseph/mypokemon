@@ -8,6 +8,19 @@
   font-weight: bold;
 }
 
+.battleContainer {
+}
+
+.pokemon {
+  text-shadow: -2px -2px 0 rgb(0, 0, 250), 2px -2px 0 rgb(0, 0, 250),
+    -2px 2px 0 rgb(0, 0, 250), 2px 2px 0 rgb(0, 0, 250);
+}
+
+.battle {
+  text-shadow: -2px -2px 0 rgb(0, 0, 0), 2px -2px 0 rgb(0, 0, 0),
+    -2px 2px 0 rgb(0, 0, 0), 2px 2px 0 rgb(0, 0, 0);
+}
+
 .main {
   padding: 5rem 0;
   /* flex: 1; */
@@ -18,7 +31,7 @@
 }
 
 .openingFont {
-  padding: 5rem 0;
+  /* padding: 10rem 0; */
   letter-spacing: -1px;
   /* flex: 1; */
   display: flex;
@@ -46,6 +59,7 @@
   animation-iteration-count: initial;
   animation-duration: 7s;
   opacity: 1;
+  margin-bottom: 70px;
 }
 
 @keyframes buttonfx {
@@ -106,7 +120,8 @@
   width: 30vw;
   animation: charizardMove;
   animation-iteration-count: initial;
-  animation-duration: 1s;
+  animation-duration: 2s;
+  /* padding-top: 200px; */
 }
 
 .charizard {
@@ -118,23 +133,24 @@
   width: 15vw;
   animation: hydro;
   animation-iteration-count: initial;
-  animation-duration: 5s;
+  animation-duration: 6s;
   opacity: 0;
+  margin-top: 40px;
 }
 
 @keyframes hydro {
   0% {
     opacity: 0;
   }
-  45% {
+  60% {
     opacity: 0;
   }
-  55% {
+  75% {
     opacity: 1;
   }
-  100% {
+  /* 100% {
     opacity: 0;
-  }
+  } */
 }
 
 .fireBlast {
@@ -142,13 +158,20 @@
   width: 15vw;
   animation: fire;
   animation-iteration-count: initial;
-  animation-duration: 2s;
+  animation-duration: 3s;
   opacity: 0;
+  margin-top: -50px;
 }
 
 @keyframes fire {
   0% {
     opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 1;
   }
   100% {
     opacity: 1;
@@ -159,11 +182,11 @@
   0% {
     padding-right: 0;
   }
-  50% {
-    padding-right: 4vw;
-  }
-  100% {
+  70% {
     padding-right: 0;
+  }
+  80% {
+    padding-right: 4vw;
   }
 }
 
@@ -172,7 +195,8 @@
   width: 30vw;
   animation: blastoiseMove;
   animation-iteration-count: initial;
-  animation-duration: 3s;
+  animation-duration: 5s;
+  margin-top: -50px;
 }
 
 .blastoise {
@@ -183,11 +207,11 @@
   0% {
     padding-left: 0;
   }
-  60% {
+  70% {
     padding-left: 0;
   }
   75% {
-    padding-left: 4vw;
+    padding-left: 4.5vw;
   }
   100% {
     padding-left: 0;

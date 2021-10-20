@@ -9,7 +9,7 @@ export default function UserPokemon(props) {
       <div className={styles.userMainContainer}>
         {props.user.currentHealth > 0 && (
           <div className={styles.npcAttackContainer}>
-            {props.npcMove && (
+            {props.npcMove && props.npcHp > 0 && (
               <img className={styles.npcAttack} src={props.npcMove.animation} />
             )}
           </div>

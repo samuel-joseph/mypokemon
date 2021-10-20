@@ -45,8 +45,7 @@ export default function Explore() {
   const [userLevel, setUserLevel] = useState(0);
 
   const level = {
-    // common: [19, 16, 37, 60, 43],
-    common: [60],
+    common: [19, 16, 37, 60, 43],
     rare: [25, 129, 120, 93, 64, 75],
     unique: [134, 135, 136, 142, 147, 143, 131],
     legend: [144, 146, 145],
@@ -478,7 +477,20 @@ export default function Explore() {
       }));
     }, 1500);
 
-    let attackedStat = damageCalc(props.attack * typeBonus, npc[0]);
+    console.log("BEFORE " + props.attack);
+
+    let attk;
+    if (user.level > npc[0].level) {
+      attk = props.attack + props.attack * (0.02 * (user.level - npc[0].level));
+    } else if (user.level < npc[0].level) {
+      attk = props.attack - props.attack * (0.02 * (npc[0].level - user.level));
+    } else {
+      attk = props.attack;
+    }
+
+    console.log("AFTER " + attk);
+
+    let attackedStat = damageCalc(attk * typeBonus, npc[0]);
 
     setTemporary((prevState) => ({
       ...prevState,
@@ -528,7 +540,7 @@ export default function Explore() {
     for (const [i, pokemon] of pokemonVar.entries()) {
       pokemon["currentHealth"] = pokemon["health"];
       if (pokemon["level"] != 50) {
-        pokemon["currentExperience"] += (200 + bonusExp) / pokemon["level"];
+        pokemon["currentExperience"] += (300 + bonusExp) / pokemon["level"];
         if (pokemon["currentExperience"] >= 100) {
           expBoost();
           function expBoost() {
@@ -561,8 +573,6 @@ export default function Explore() {
             } else {
               pokemon["currentExperience"] = 100 - pokemon["currentExperience"];
             }
-
-            console.log(pokemon);
           }
         }
       }
@@ -571,7 +581,9 @@ export default function Explore() {
     chosenVar["currentHealth"] = chosenVar["health"];
 
     if (chosenVar["level"] != 50) {
-      chosenVar["currentExperience"] += (400 + bonusExp) / chosenVar["level"];
+      chosenVar["currentExperience"] +=
+        (500 + bonusExp) / (chosenVar["level"] * 0.5);
+
       if (chosenVar["currentExperience"] >= 100) {
         expBoost();
 
@@ -582,7 +594,7 @@ export default function Explore() {
 
           if (
             !chosenVar["fullyEvolved"] &&
-            (chosenVar["level"] === 15 || chosenVar["level"] === 16)
+            (chosenVar["level"] === 17 || chosenVar["level"] === 30)
           ) {
             let newId = chosenVar["pokemonId"] + 1;
             let newEvolved = evolution.filter(
@@ -683,7 +695,20 @@ export default function Explore() {
       let test = typeAdvantage(npcAttack[0].type, user.type);
       typeBonus += test;
 
-      const attackedStat = damageCalc(npcAttack[0]["attack"] * typeBonus, user);
+      console.log("BEFORE " + npcAttack[0].attack);
+
+      let attk;
+
+      if (wildAppearVar[0].level > user.level) {
+        attk =
+          npcAttack[0].attack +
+          npcAttack[0].attack * (0.06 * (wildAppearVar[0].level - user.level));
+      } else {
+        attk = npcAttack[0].attack;
+      }
+      console.log("AFTER " + attk);
+
+      const attackedStat = damageCalc(attk * typeBonus, user);
 
       if (wildAppearVar[0].currentHealth <= 0) {
         setTimeout(function () {
@@ -742,9 +767,17 @@ export default function Explore() {
                       A wild {temporary["wildAppear"][0].name} appeared!
                     </p>
                     <div style={{ display: "flex", alignItems: "center" }}>
-                      <img src={temporary["wildAppear"][0].frontImage} />
+                      <img
+                        style={{ width: "100px" }}
+                        src={temporary["wildAppear"][0].frontImage}
+                      />
                       VS
-                      {ignite && <img src={temporary["chosen"].frontImage} />}
+                      {ignite && (
+                        <img
+                          style={{ width: "100px" }}
+                          src={temporary["chosen"].frontImage}
+                        />
+                      )}
                     </div>
 
                     {ignite && (
@@ -801,6 +834,7 @@ export default function Explore() {
                       attack={attack}
                       user={temporary["chosen"]}
                       npcMove={temporary["wildMove"]}
+                      npcHp={temporary["wildAppear"][0].currentHealth}
                     />
                   )}
                 </>

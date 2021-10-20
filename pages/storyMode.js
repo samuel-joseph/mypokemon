@@ -7,8 +7,7 @@ import MoveBar from "./moveBar";
 
 export default function StoryMode() {
   const [autoAttack, setAutoAttack] = useState(false);
-  // const [userPokemons, setUserPokemons] = useState([]);
-  let userPokemonsSpare = [];
+  const [temp, setTemp] = useState([]);
   const [userDisable, setUserDisable] = useState(false);
   const color = {
     Grass: "green",
@@ -301,17 +300,21 @@ export default function StoryMode() {
 
   const chosenPokemon = (props) => {
     let userPokemons = data["userPokemons"];
+    let reserve = temp;
     let inventory = data["inventory"];
     let index = inventory.findIndex(
       (i) =>
         i.name === props.name && i.currentExperience === props.currentExperience
     );
-
+    for (let move of props.moves) {
+      if (move.level != "weak") {
+        move.gauge = 0;
+      }
+    }
     inventory.splice(index, 1);
     userPokemons.push(props);
-
-    // setUserPokemons(userPokemons);
-    userPokemonsSpare = userPokemons;
+    reserve.push(props);
+    setTemp(reserve);
 
     setData((prevState) => ({
       ...prevState,
@@ -389,8 +392,6 @@ export default function StoryMode() {
           userPokemons[0].currentHealth =
             userPokemons[0].currentHealth - npcMove.attack * typeBonus;
 
-          // userPokemons[0].currentHealth -= npcMove.attack;
-
           setData((prevState) => ({ ...prevState, npcMove }));
           if (userPokemons[0].currentHealth <= 0) {
             if (userPokemons.length > 1) {
@@ -450,14 +451,7 @@ export default function StoryMode() {
         }
       }
     }
-    // console.log(userMove.attack);
-    // if (currentNpc.level > userCurrent.level) {
-    //   userMove.attack =
-    //     userMove.attack -
-    //     userMove.attack * (0.01 * (currentNpc.level - userCurrent.level));
-    // }
 
-    console.log(userMove.attack);
     setTimeout(function () {
       setData((prevState) => ({ ...prevState, userMove: null }));
     }, 2000);
@@ -466,16 +460,15 @@ export default function StoryMode() {
       currentNpc.currentHealth -
       (currentNpc.level > userCurrent.level
         ? userMove.attack -
-          userMove.attack * (0.01 * (currentNpc.level - userCurrent.level))
+          userMove.attack * (0.03 * (currentNpc.level - userCurrent.level))
         : userMove.attack) *
         typeBonus;
-
-    console.log(currentNpc.currentHealth);
 
     if (currentNpc.currentHealth <= 0 && leader.length > 1) {
       leader.splice(0, 1);
     } else if (leader.length == 1 && currentNpc.currentHealth <= 0) {
       currentNpc.currentHealth = 0;
+
       setTimeout(function () {
         leader.splice(0, 1);
         setAutoAttack(false);
@@ -576,12 +569,13 @@ export default function StoryMode() {
                 </div>
               </div>
               <div className={styles.npcContainer}>
-                {data["npcMove"] && (
-                  <img
-                    className={styles.npcAnimation}
-                    src={data["npcMove"].animation}
-                  />
-                )}
+                {data["npcMove"] &&
+                  data["leader"].pokemon[0].currentHealth > 0 && (
+                    <img
+                      className={styles.npcAnimation}
+                      src={data["npcMove"].animation}
+                    />
+                  )}
                 <div
                   className={
                     userDisable
@@ -610,6 +604,8 @@ export default function StoryMode() {
                   }
                 />
               </div>
+              {console.log(temp)}
+              {console.log(data["inventory"])}
             </div>
             <div>
               {data && data["userPokemons"][0].currentHealth != 0 && (
